@@ -31,12 +31,14 @@ def get_jeton(user_id):
   try:
     jeton = CasinoSingleton.get_jeton_by_user_id(user_id)
     factor = CasinoSingleton.get_jeton_factor()
+
     return jsonify({
         'success': True,
         'jeton_amount': jeton.jeton_amount,
         'user_id': jeton.user_id,
         'factor': factor
     }), 200
+
   except Exception as e:
     print('ERROR', e)
     abort(404)
