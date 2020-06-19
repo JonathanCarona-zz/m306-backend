@@ -39,3 +39,19 @@ class IniFileJetonContext(IJetonContext):
         new_jeton_amount = int(database[user_id]['jeton_amount'])
 
         return Jeton(user_id, new_jeton_amount)
+    
+    """
+    Overwrite
+    IJetonContext.set_player_jeton()
+    """
+    def set_player_jeton(user_id: str, amount_of_jeton: int) -> Jeton:
+        database.read(database_ini)
+        database.set(user_id, 'jeton_amount', str(amount_of_jeton))
+
+        with open(database_ini, 'w') as configfile:
+            database.write(configfile)
+            configfile.close()
+        
+        new_jeton_amount = int(database[user_id]['jeton_amount'])
+
+        return Jeton(user_id, new_jeton_amount)

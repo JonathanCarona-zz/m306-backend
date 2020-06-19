@@ -28,3 +28,6 @@ class CasinoSingleton(metaclass=CasinoSingletonMeta):
     
     def post_jeton(user_id: str, jeton_amount: int) -> Jeton:
         return IniFileJetonContext.post_jeton(user_id, jeton_amount)
+
+    def set_player_jeton(user_id: str, amount_of_jeton: int) -> Jeton:
+        return IniFileJetonContext.set_player_jeton(user_id, amount_of_jeton)
