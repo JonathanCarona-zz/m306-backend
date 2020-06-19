@@ -13,6 +13,6 @@ database.read(database_ini)
 
 class IniFileJetonContext(IJetonContext):
     
-    def get_jeton(self, user_id) -> Jeton:
-        jeton_amount = database[user_id['jeton_amount']
+    def get_jeton(user_id) -> Jeton:
+        jeton_amount = database[user_id]['jeton_amount']
         return Jeton(user_id, jeton_amount)
