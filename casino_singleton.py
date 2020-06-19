@@ -19,10 +19,10 @@ class CasinoSingletonMeta(type):
         return self._instance
 
 
-    class CasinoSingleton(metaclass=CasinoSingletonMeta):
-        def get_jeton_by_user_id(user_id: str) -> Jeton:
-            return IniFileJetonContext.get_jeton(user_id)
+class CasinoSingleton(metaclass=CasinoSingletonMeta):
+    def get_jeton_by_user_id(user_id: str) -> Jeton:
+        return IniFileJetonContext.get_jeton(user_id)
 
-        def get_jeton_factor():
-            return config['jeton']['factor']
+    def get_jeton_factor() -> float:
+        return IniFileJetonContext.get_jeton_factor()
     

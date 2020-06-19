@@ -6,11 +6,6 @@ from configparser import ConfigParser
 
 from casino_singleton import CasinoSingleton
 
-#user = config['1']['name']
-#jetons = config['1']['jeton_ammount']
-#print(user)
-#print(jetons)
-
 def create_app(test_config=None):
   # create and configure the app
   app = Flask(__name__)
