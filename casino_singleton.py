@@ -1,24 +1,15 @@
 from __future__ import annotations
 from typing import Optional
 from flask import Flask, request, abort, jsonify
-from configparser import ConfigParser
+from inifile_jeton_context import IniFileJetonContext
 from models import Jeton
 
-database_ini = "casino_bank.ini"
-config_ini = "config.ini"
-
-config = ConfigParser()
-database = ConfigParser()
-
-config.read(config_ini)
-database.read(database_ini)
-
+"""
+The Singleton class can be implemented in different ways in Python. Some
+possible methods include: base class, decorator, metaclass. We will use the
+metaclass because it is best suited for this purpose.
+"""
 class CasinoSingletonMeta(type):
-    """
-    The Singleton class can be implemented in different ways in Python. Some
-    possible methods include: base class, decorator, metaclass. We will use the
-    metaclass because it is best suited for this purpose.
-    """
 
     _instance: Optional[CasinoSingleton] = None
 
@@ -29,11 +20,9 @@ class CasinoSingletonMeta(type):
 
 
 class CasinoSingleton(metaclass=CasinoSingletonMeta):
+    def get_jeton_by_user_id(user_id: str) -> Jeton:
+        return IniFileJetonContext.get_jeton(user_id)
 
-    def get_jeton_by_user_id(user):
-        jeton_amount = database[user]['jeton_amount']
-        return Jeton(user, jeton_amount)
-
-    def get_jeton_factor():
-        return config['jeton']['factor']
+    def get_jeton_factor() -> float:
+        return IniFileJetonContext.get_jeton_factor()
     
