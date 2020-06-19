@@ -16,3 +16,6 @@ class IniFileJetonContext(IJetonContext):
     def get_jeton(user_id) -> Jeton:
         jeton_amount = database[user_id]['jeton_amount']
         return Jeton(user_id, jeton_amount)
+    
+    def get_jeton_factor() -> float:
+        return float(config['jeton']['factor'])
