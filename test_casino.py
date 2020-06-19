@@ -31,15 +31,15 @@ class CasinoTestCase(unittest.TestCase):
     
     # Correct test get_jeton(asdf1234fdsa) endpoint for retrieving a jeton
     def test_get_jeton(self):
-        res = self.client().get('/jetons/asdf1234fdsa')
+        res = self.client().get('/jetons/lkajsfu483ijz6932kj12fasjl4')
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(res.json['user_id'], 'asdf1234fdsa')
+        self.assertEqual(res.json['user_id'], 'lkajsfu483ijz6932kj12fasjl4')
 
     # Correct test patch_jeton(asdf1234fdsa) endpoint for retrieving a jeton
     def test_patch_jeton(self):
-        res = self.client().get('/jetons/asdf1234fdsa')
+        res = self.client().patch('/jetons/lkajsfu483ijz6932kj12fasjl4', json=self.patch_jeton)
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(res.json['user_id'], 'asdf1234fdsa')
+        self.assertEqual(res.json['user_id'], 'lkajsfu483ijz6932kj12fasjl4')
         self.assertEqual(res.json['jeton_amount'], 10000)
 
     # Error test create_jeton() request
