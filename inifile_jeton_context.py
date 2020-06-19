@@ -13,15 +13,27 @@ database.read(database_ini)
 
 class IniFileJetonContext(IJetonContext):
     
+    """
+    Overwrite
+    IJetonContext.get_jeton()
+    """
     def get_jeton(user_id: str) -> Jeton:
         database.read(database_ini)
         jeton_amount = int(database[user_id]['jeton_amount'])
         return Jeton(user_id, jeton_amount)
     
+    """
+    Overwrite
+    IJetonContext.get_jeton_factor()
+    """
     def get_jeton_factor() -> float:
         config.read(config_ini)
         return float(config['jeton']['factor'])
 
+    """
+    Overwrite
+    IJetonContext.post_jeton()
+    """
     def post_jeton(user_id: str, jeton_amount: int) -> Jeton:
         database.read(database_ini)
 
