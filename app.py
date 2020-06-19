@@ -91,3 +91,25 @@ def patch_jeton(user_id):
   except Exception as e:
     print(e)
     abort(404)
+
+'''
+GET /spin
+'''
+@app.route('spin', methods=['GET'])
+def play_game():
+  try:
+    body = request.get_json()
+
+    if not ('bet' in body and 'user_id' in body):
+      abort(422)
+
+    if (body['bet'] is 0):
+      abort(422)
+
+    #TODO: Check if user is able to bet amount
+    #TODO: Implement SlotMachineService
+    #TODO: 
+  
+  except Exception as e:
+    print(e)
+    abort(404)
