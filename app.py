@@ -65,3 +65,29 @@ def post_jeton():
   except Exception as e:
     print(e)
     abort(404)
+
+'''
+PATCH /jetons/<id>
+'''
+@app.route('/jetons/<string:user_id>', methods=['PATCH'])
+def patch_jeton(user_id):
+  try:
+    body = request.get_json()
+
+    if not ('jeton_amount' in body):
+      abort(422)
+    
+    if (body['jeton_amount'] is None):
+      abort(422)
+
+    updated_jeton = CasinoSingleton.set_player_jeton(user_id, body['jeton_amount'])
+
+    return jsonify({
+      'success': True,
+      'user_id': updated_jeton.user_id,
+      'jeton_amount': updated_jeton.jeton_amount
+    }), 200
+
+  except Exception as e:
+    print(e)
+    abort(404)
