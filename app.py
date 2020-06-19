@@ -43,14 +43,23 @@ def get_jeton(user_id):
 POST /jetons
 '''
 @app.route('/jetons', methods=['POST'])
-def post_jetons():
+def post_jeton():
   try:
     body = request.get_json()
+
     if not ('user_id' in body and 'jeton_amount' in body):
       abort(422)
 
+    new_jeton = CasinoSingleton.post_jeton(body['user_id'], body['jeton_amount'])
+
+    formatted_jeton = {
+      'user_id': new_jeton.user_id,
+      'jeton_amount': new_jeton.jeton_amount
+    }
+
     return jsonify({
       'success': True,
+      'new_jeton': formatted_jeton
     }), 200
 
   except Exception as e:
