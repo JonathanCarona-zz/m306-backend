@@ -95,7 +95,7 @@ def patch_jeton(user_id):
 '''
 GET /spin
 '''
-@app.route('spin', methods=['GET'])
+@app.route('/spin', methods=['GET'])
 def play_game():
   try:
     body = request.get_json()
