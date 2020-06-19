@@ -15,6 +15,10 @@ class CasinoTestCase(unittest.TestCase):
             'user_id': 'lkajsfu483ijz6932kj12fasjl4',
             'jeton_amount': 2000
         }
+
+        self.patch_jeton = {
+            'jeton_amount': 10000
+        }
     
     def tearDown(self):
         """Executed after reach test"""
@@ -30,6 +34,13 @@ class CasinoTestCase(unittest.TestCase):
         res = self.client().get('/jetons/asdf1234fdsa')
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.json['user_id'], 'asdf1234fdsa')
+
+    # Correct test patch_jeton(asdf1234fdsa) endpoint for retrieving a jeton
+    def test_patch_jeton(self):
+        res = self.client().get('/jetons/asdf1234fdsa')
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.json['user_id'], 'asdf1234fdsa')
+        self.assertEqual(res.json['jeton_amount'], 10000)
 
     # Error test create_jeton() request
     def test_create_jeton_already_exists(self):
