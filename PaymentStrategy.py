@@ -4,39 +4,34 @@ from typing import List
 
 
 class PaymentContext():
-    def __init__(self, strategy: PaymentStrategy) -> None:
+    def __init__(self, strategy: PaymentStrategy = None) -> None:
         self._strategy = strategy
 
     @property
     def strategy(self) -> PaymentStrategy:
-
         return self._strategy
 
     @strategy.setter
     def strategy(self, strategy: PaymentStrategy) -> None:
-        """
-        Usually, the Context allows replacing a Strategy object at runtime.
-        """
-
         self._strategy = strategy
 
-    def payWithMethod(self) -> None:
-        return self._strategy.run_checkout()
+    def payWithMethod(self, paymentAmount: float) -> bool:
+        return self._strategy.run_checkout(paymentAmount)
 
 
 class PaymentStrategy(ABC):
     @abstractmethod
-    def run_checkout(self, data: List):
+    def run_checkout(self, paymentAmount: float):
         pass
 
 
 class CreditcardPayment(PaymentStrategy):
-    def run_checkout(self) -> bool:
+    def run_checkout(self, paymentAmount: float) -> bool:
         return True;
 
 
 class AnotherPayment(PaymentStrategy):
-    def run_checkout(self) -> bool:
+    def run_checkout(self, paymentAmount: float) -> bool:
         return False
 
 
