@@ -1,8 +1,8 @@
 from __future__ import annotations
 from typing import Optional
-from flask import Flask, request, abort, jsonify
 from inifile_jeton_context import IniFileJetonContext
 from models import Jeton
+from PaymentStrategy import PaymentContext, CreditcardPayment, AnotherPayment
 
 """
 The Singleton class can be implemented in different ways in Python. Some
@@ -20,10 +20,25 @@ class CasinoSingletonMeta(type):
 
 
 class CasinoSingleton(metaclass=CasinoSingletonMeta):
+    @classmethod
+    def run_checkout(cls, paymentMethod: str, userId: str, payAmount: float) -> bool:
+        context = PaymentContext()
+        if (paymentMethod == "creditcard"):
+            context.strategy = CreditcardPayment()
+        elif (paymentMethod == "anotherpayment"):
+            context.strategy = AnotherPayment()
+        else:
+            return False;
+        paymentSuccessful = context.payWithMethod(payAmount)
+
+        if (paymentSuccessful == True):
+            cls.set_player_jeton(userId, int(cls.get_jeton_by_user_id(userId).jeton_amount + payAmount * cls.get_jeton_factor()))
+
     def get_jeton_by_user_id(user_id: str) -> Jeton:
         return IniFileJetonContext.get_jeton(user_id)
 
-    def get_jeton_factor() -> float:
+    @classmethod
+    def get_jeton_factor(cls) -> float:
         return IniFileJetonContext.get_jeton_factor()
     
     def post_jeton(user_id: str, jeton_amount: int) -> Jeton:
