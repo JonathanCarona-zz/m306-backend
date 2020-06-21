@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import Optional
 from inifile_jeton_context import IniFileJetonContext
 from models import Jeton
-from PaymentStrategy import PaymentContext, CreditcardPayment, AnotherPayment
+from PaymentStrategy import PaymentContext, CreditcardPayment, TwintPayment
 
 """
 The Singleton class can be implemented in different ways in Python. Some
@@ -25,14 +25,15 @@ class CasinoSingleton(metaclass=CasinoSingletonMeta):
         context = PaymentContext()
         if (paymentMethod == "creditcard"):
             context.strategy = CreditcardPayment()
-        elif (paymentMethod == "anotherpayment"):
-            context.strategy = AnotherPayment()
+        elif (paymentMethod == "twint"):
+            context.strategy = TwintPayment()
         else:
-            return False;
+            return False
         paymentSuccessful = context.payWithMethod(payAmount)
 
         if (paymentSuccessful == True):
             cls.set_player_jeton(userId, int(cls.get_jeton_by_user_id(userId).jeton_amount + payAmount * cls.get_jeton_factor()))
+        return True
 
     def get_jeton_by_user_id(user_id: str) -> Jeton:
         return IniFileJetonContext.get_jeton(user_id)

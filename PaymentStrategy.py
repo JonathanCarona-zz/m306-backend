@@ -29,6 +29,6 @@ class CreditcardPayment(PaymentStrategy):
         return True;
 
 
-class AnotherPayment(PaymentStrategy):
+class TwintPayment(PaymentStrategy):
     def run_checkout(self, paymentAmount: float) -> bool:
         return False
