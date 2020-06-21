@@ -17,3 +17,4 @@ class IJetonContext():
     def set_player_jeton(self, amount_of_jeton: int) -> Jeton:
         """Patch jeton in database"""
         pass
+

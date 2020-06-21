@@ -1,4 +1,4 @@
-from interfaces import IJetonContext
+from IJetonContext import IJetonContext
 from configparser import ConfigParser
 from models import Jeton
 

@@ -19,11 +19,21 @@ class CasinoTestCase(unittest.TestCase):
         self.patch_jeton = {
             'jeton_amount': 10000
         }
+
+        self.patch_run_checkout = {
+            'user_id': 'lkajsfu483ijz6932kj12fasjl4',
+            'addedJetonAmount': 2000,
+            'payAmount': 2000
+        }
     
     def tearDown(self):
         """Executed after reach test"""
         pass
-    
+
+    def test_run_checkout(self):
+        res = self.client().patch('/payment/creditcard', json=self.patch_run_checkout)
+        self.assertEqual(res.status_code, 200)
+
     # Correct test create_jeton() request
     def test_create_jeton(self):
         res = self.client().post('/jetons', json=self.new_jeton)
