@@ -1,6 +1,6 @@
 import unittest
 
-from PaymentStrategy import PaymentContext, PaymentStrategy, TwintPayment, CreditcardPayment
+from flaskr.services.PaymentStrategy import PaymentContext, TwintPayment, CreditcardPayment
 
 class PaymentStrategyTestCase(unittest.TestCase):
     """This class represents the payment strategy test case"""

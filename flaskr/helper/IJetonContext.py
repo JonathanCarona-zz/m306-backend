@@ -1,4 +1,4 @@
-from models import Jeton
+from flaskr.models.Jeton import Jeton
 
 class IJetonContext():
 

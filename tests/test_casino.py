@@ -1,8 +1,6 @@
-import os
 import unittest
-import json
 
-from app import app
+from flaskr.app import app
 
 class CasinoTestCase(unittest.TestCase):
     """This class represents the casino test case"""
