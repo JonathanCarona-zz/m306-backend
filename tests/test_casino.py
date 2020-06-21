@@ -1,6 +1,7 @@
 import unittest
 
 from flaskr.app import app
+from configparser import ConfigParser
 
 class CasinoTestCase(unittest.TestCase):
     """This class represents the casino test case"""
@@ -11,6 +12,11 @@ class CasinoTestCase(unittest.TestCase):
 
         self.new_jeton = {
             'user_id': 'lkajsfu483ijz6932kj12fasjl4',
+            'jeton_amount': 2000
+        }
+
+        self.already_exists = {
+            'user_id': 'test',
             'jeton_amount': 2000
         }
 
@@ -52,7 +58,7 @@ class CasinoTestCase(unittest.TestCase):
 
     # Error test create_jeton() request
     def test_create_jeton_already_exists(self):
-        res = self.client().post('/jetons', json=self.new_jeton)
+        res = self.client().post('/jetons', json=self.already_exists)
         self.assertEqual(res.status_code, 404)
 
     # Error test get_jeton() request
