@@ -33,14 +33,3 @@ class CreditcardPayment(PaymentStrategy):
 class AnotherPayment(PaymentStrategy):
     def run_checkout(self, paymentAmount: float) -> bool:
         return False
-
-
-if __name__ == "__main__":
-    context = PaymentContext(CreditcardPayment())
-    print("Client: Strategy is set to normal sorting.")
-    context.payWithMethod()
-    print()
-
-    print("Client: Strategy is set to reverse sorting.")
-    context.strategy = AnotherPayment()
-    context.payWithMethod()
