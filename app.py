@@ -45,8 +45,11 @@ PATCH /payment/<paymentMethod>
 def patch_pay(paymentmethod):
   try:
     body = request.get_json()
-    CasinoSingleton.run_checkout(paymentmethod, body['user_id'], body['payAmount'])
+    success = CasinoSingleton.run_checkout(paymentmethod, body['user_id'], body['payAmount'])
     jeton = CasinoSingleton.get_jeton_by_user_id(body['user_id'])
+
+    if (not success):
+      abort(422)
 
     return jsonify({
         'success': True,
