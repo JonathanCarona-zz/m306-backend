@@ -1,6 +1,6 @@
-from IJetonContext import IJetonContext
+from flaskr.helper.IJetonContext import IJetonContext
 from configparser import ConfigParser
-from models import Jeton
+from flaskr.models.Jeton import Jeton
 
 database_ini = "casino_bank.ini"
 config_ini = "config.ini"
@@ -12,7 +12,6 @@ config.read(config_ini)
 database.read(database_ini)
 
 class IniFileJetonContext(IJetonContext):
-    
     """
     Overwrite
     IJetonContext.get_jeton()

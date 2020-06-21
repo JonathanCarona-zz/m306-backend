@@ -1,10 +1,7 @@
-import os
 from flask import Flask, request, abort, jsonify
-from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from configparser import ConfigParser
 
-from casino_singleton import CasinoSingleton
+from flaskr.services.CasinoSingleton import CasinoSingleton
 
 def create_app(test_config=None):
   # create and configure the app
@@ -45,8 +42,9 @@ PATCH /payment/<paymentMethod>
 def patch_pay(paymentmethod):
   try:
     body = request.get_json()
+    user_id = body['user_id']
     success = CasinoSingleton.run_checkout(paymentmethod, body['user_id'], body['payAmount'])
-    jeton = CasinoSingleton.get_jeton_by_user_id(body['user_id'])
+    jeton = CasinoSingleton.get_jeton_by_user_id(user_id)
 
     if (not success):
       abort(422)

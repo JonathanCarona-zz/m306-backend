@@ -1,14 +1,10 @@
 from __future__ import annotations
 from typing import Optional
-from inifile_jeton_context import IniFileJetonContext
-from models import Jeton
-from PaymentStrategy import PaymentContext, CreditcardPayment, TwintPayment
+from flaskr.helper.inifile_jeton_context import IniFileJetonContext
+from flaskr.models.Jeton import Jeton
+from flaskr.services.PaymentStrategy import PaymentContext, CreditcardPayment, TwintPayment
 
-"""
-The Singleton class can be implemented in different ways in Python. Some
-possible methods include: base class, decorator, metaclass. We will use the
-metaclass because it is best suited for this purpose.
-"""
+
 class CasinoSingletonMeta(type):
 
     _instance: Optional[CasinoSingleton] = None
@@ -32,7 +28,9 @@ class CasinoSingleton(metaclass=CasinoSingletonMeta):
         paymentSuccessful = context.payWithMethod(payAmount)
 
         if (paymentSuccessful == True):
-            cls.set_player_jeton(userId, int(cls.get_jeton_by_user_id(userId).jeton_amount + payAmount * cls.get_jeton_factor()))
+            jetonAmount = cls.get_jeton_by_user_id(userId).jeton_amount
+            payAmountTimeFactor = payAmount * cls.get_jeton_factor()
+            cls.set_player_jeton(userId, int(jetonAmount + payAmountTimeFactor))
         return True
 
     def get_jeton_by_user_id(user_id: str) -> Jeton:
@@ -41,7 +39,7 @@ class CasinoSingleton(metaclass=CasinoSingletonMeta):
     @classmethod
     def get_jeton_factor(cls) -> float:
         return IniFileJetonContext.get_jeton_factor()
-    
+
     def post_jeton(user_id: str, jeton_amount: int) -> Jeton:
         return IniFileJetonContext.post_jeton(user_id, jeton_amount)
 
