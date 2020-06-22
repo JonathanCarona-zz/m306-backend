@@ -14,21 +14,21 @@ class PaymentContext():
     def strategy(self, strategy: PaymentStrategy) -> None:
         self._strategy = strategy
 
-    def payWithMethod(self, paymentAmount: float) -> bool:
-        return self._strategy.run_checkout(paymentAmount)
+    def pay_with_method(self, paymentamount: float) -> bool:
+        return self._strategy.run_checkout(paymentamount)
 
 
 class PaymentStrategy(ABC):
     @abstractmethod
-    def run_checkout(self, paymentAmount: float):
+    def run_checkout(self, paymentamount: float):
         pass
 
 
 class CreditcardPayment(PaymentStrategy):
-    def run_checkout(self, paymentAmount: float) -> bool:
+    def run_checkout(self, paymentamount: float) -> bool:
         return True;
 
 
 class TwintPayment(PaymentStrategy):
-    def run_checkout(self, paymentAmount: float) -> bool:
+    def run_checkout(self, paymentamount: float) -> bool:
         return False
