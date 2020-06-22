@@ -1,6 +1,5 @@
 from flaskr.models.Jeton import Jeton
 
-
 class IJetonContext():
 
     def get_jeton(self, user_id: str) -> Jeton:

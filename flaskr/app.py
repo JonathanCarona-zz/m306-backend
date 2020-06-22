@@ -2,13 +2,16 @@ from flask import Flask, request, abort, jsonify
 from flask_cors import CORS
 
 from flaskr.services.CasinoSingleton import CasinoSingleton
+from flaskr.services.SlotMachineService import SlotMachineService
+from flaskr.services.auth import AuthError, requires_auth
+from flaskr.services.CasinoSingleton import CasinoSingleton
 from flaskr.services.auth import AuthError, requires_auth
 
 def create_app(test_config=None):
   # create and configure the app
   app = Flask(__name__)
   CORS(app, resources={r"/*": {"origins": "*"}})
-  
+
   return app
 
 app = create_app()
@@ -184,3 +187,24 @@ def auth_error(error):
         'error': error.status_code,
         'message': error.error['description']
     }), error.status_code
+
+'''
+PATCH /slotmachine/spin
+'''
+@app.route('/slotmachine/spin', methods=['PATCH'])
+def play_game():
+  try:
+    body = request.get_json()
+
+    if not ('bet' in body and 'user_id' in body):
+      abort(422)
+
+    if (body['bet'] == 0):
+      abort(422)
+    return SlotMachineService().spin(body['user_id', body['bet'], body['jeton']])
+
+  except Exception as e:
+    print(e)
+    abort(404)
+
+
