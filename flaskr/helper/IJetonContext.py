@@ -5,7 +5,7 @@ class IJetonContext():
     def get_jeton(self, user_id: str) -> Jeton:
         """Get jeton from database"""
         pass
-    
+
     def get_jeton_factor(self) -> float:
         """Get jeton factor from database"""
         pass
@@ -17,4 +17,3 @@ class IJetonContext():
     def set_player_jeton(self, amount_of_jeton: int) -> Jeton:
         """Patch jeton in database"""
         pass
-

@@ -4,11 +4,14 @@ from flask_cors import CORS
 from flaskr.services.CasinoSingleton import CasinoSingleton
 from flaskr.services.SlotMachineService import SlotMachineService
 from flaskr.services.auth import AuthError, requires_auth
+from flaskr.services.CasinoSingleton import CasinoSingleton
+from flaskr.services.auth import AuthError, requires_auth
 
 def create_app(test_config=None):
   # create and configure the app
   app = Flask(__name__)
   CORS(app, resources={r"/*": {"origins": "*"}})
+
   return app
 
 app = create_app()
@@ -16,13 +19,19 @@ app = create_app()
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
 
+@app.after_request
+def after_request(response):
+  response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+  response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS')
+  return response
+
 # ROUTES
 '''
 GET /jetons/<id>
 '''
 @app.route('/jetons/<string:user_id>', methods=['GET'])
-@requires_auth('get:jetons')
-def get_jeton(user_id):
+@requires_auth('get:jeton')
+def get_jeton(jwt, user_id):
   try:
     jeton = CasinoSingleton.get_jeton_by_user_id(user_id)
     factor = CasinoSingleton.get_jeton_factor()
@@ -43,7 +52,7 @@ PATCH /payment/<paymentMethod>
 '''
 @app.route('/payment/<paymentmethod>', methods=['PATCH'])
 @requires_auth('patch:payment')
-def patch_pay(paymentmethod):
+def patch_pay(jwt, paymentmethod):
   try:
     body = request.get_json()
     user_id = body['user_id']
@@ -67,8 +76,8 @@ def patch_pay(paymentmethod):
 POST /jetons
 '''
 @app.route('/jetons', methods=['POST'])
-@requires_auth('post:jetons')
-def post_jeton():
+@requires_auth('post:jeton')
+def post_jeton(jwt):
   try:
     body = request.get_json()
 
@@ -95,8 +104,8 @@ def post_jeton():
 PATCH /jetons/<id>
 '''
 @app.route('/jetons/<string:user_id>', methods=['PATCH'])
-@requires_auth('patch:jetons')
-def patch_jeton(user_id):
+@requires_auth('patch:jeton')
+def patch_jeton(jwt, user_id):
   try:
     body = request.get_json()
 
@@ -154,6 +163,18 @@ def not_found(error):
         'error': 404,
         'message': "unprocessable"
     }), 404
+
+
+'''
+Error Handler for 405
+'''
+@app.errorhandler(405)
+def not_found(error):
+    return jsonify({
+        'success': False,
+        'error': 405,
+        'message': "method not allowed"
+    }), 405
 
 
 '''

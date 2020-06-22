@@ -10,11 +10,11 @@ class PaymentStrategyTestCase(unittest.TestCase):
 
     def test_creditcard_strategy(self):
         self.context.strategy = CreditcardPayment()
-        self.assertTrue(self.context.payWithMethod(1000.0))
+        self.assertTrue(self.context.pay_with_method(1000.0))
 
     def test_anotherPayment_strategy(self):
         self.context.strategy = TwintPayment()
-        self.assertFalse(self.context.payWithMethod(1000.0))
+        self.assertFalse(self.context.pay_with_method(1000.0))
 
 
 

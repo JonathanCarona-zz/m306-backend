@@ -5,7 +5,6 @@ from flaskr.models.Jeton import Jeton
 from flaskr.services.PaymentStrategy import PaymentContext, CreditcardPayment, TwintPayment
 
 
-
 class CasinoSingletonMeta(type):
 
     _instance: Optional[CasinoSingleton] = None
@@ -18,20 +17,20 @@ class CasinoSingletonMeta(type):
 
 class CasinoSingleton(metaclass=CasinoSingletonMeta):
     @classmethod
-    def run_checkout(cls, paymentMethod: str, userId: str, payAmount: float) -> bool:
+    def run_checkout(cls, paymentmethod: str, userid: str, payamount: float) -> bool:
         context = PaymentContext()
-        if (paymentMethod == "creditcard"):
+        if paymentmethod == "creditcard":
             context.strategy = CreditcardPayment()
-        elif (paymentMethod == "twint"):
+        elif paymentmethod == "twint":
             context.strategy = TwintPayment()
         else:
             return False
-        paymentSuccessful = context.payWithMethod(payAmount)
+        payment_successful = context.pay_with_method(payamount)
 
-        if (paymentSuccessful == True):
-            jetonAmount = cls.get_jeton_by_user_id(userId).jeton_amount
-            payAmountTimeFactor = payAmount * cls.get_jeton_factor()
-            cls.set_player_jeton(userId, int(jetonAmount + payAmountTimeFactor))
+        if (payment_successful == True):
+            jeton_amount = cls.get_jeton_by_user_id(userid).jeton_amount
+            pay_amount_time_factor = payamount * cls.get_jeton_factor()
+            cls.set_player_jeton(userid, int(jeton_amount + pay_amount_time_factor))
         return True
 
     def get_jeton_by_user_id(user_id: str) -> Jeton:
