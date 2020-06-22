@@ -302,8 +302,8 @@
 							"script": {
 								"id": "6ea0d38d-8f9c-434d-9ef1-f3b530d45d10",
 								"exec": [
-									"pm.test(\"Status code is 500\", function () {",
-									"    pm.response.to.have.status(500);",
+									"pm.test(\"Status code is 405\", function () {",
+									"    pm.response.to.have.status(405);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -529,7 +529,7 @@
 	],
 	"variable": [
 		{
-			"id": "30b9f529-46cc-4bd9-ab54-866e686c95b6",
+			"id": "03ac02ac-cc44-4fe5-9934-0cfd7ea182d1",
 			"key": "host",
 			"value": "localhost:5000",
 			"type": "string"
