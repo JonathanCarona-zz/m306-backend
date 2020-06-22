@@ -1,7 +1,6 @@
 import unittest
 
 from flaskr.app import app
-from configparser import ConfigParser
 
 class CasinoTestCase(unittest.TestCase):
     """This class represents the casino test case"""
