@@ -1,9 +1,8 @@
 import json
-from flask import request, _request_ctx_stack
+from flask import request
 from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
-
 
 AUTH0_DOMAIN = 'dev-y3-vfjro.eu.auth0.com'
 ALGORITHMS = ['RS256']
@@ -14,6 +13,8 @@ API_AUDIENCE = 'casinoprototyp'
 AuthError Exception
 A standardized way to communicate auth failure modes
 '''
+
+
 class AuthError(Exception):
     def __init__(self, error, status_code):
         self.error = error
@@ -25,6 +26,8 @@ class AuthError(Exception):
 Get Token from header
 Reads Authorization from the request header, checks if a Bearer Token is attached, splits the Ttken itself from the "Bearer" title and returns this
 """
+
+
 def get_token_auth_header():
     auth = request.headers.get('Authorization', None)
 
@@ -33,7 +36,7 @@ def get_token_auth_header():
             "code": "authorization_header_missing",
             "description": "Authorization header is expected"
         }, 401)
-    
+
     parts = auth.split()
 
     if parts[0].lower() != "bearer":
@@ -41,7 +44,7 @@ def get_token_auth_header():
             "code": "invalid_header",
             "description": "Authorization header must start with 'Bearer'."
         }, 401)
-    
+
     elif len(parts) == 1:
         raise AuthError({
             "code": "invalid_header",
@@ -61,10 +64,12 @@ def get_token_auth_header():
 Verify and Decode JWTs
 Checks if the key is in the well-known jwk json and then decodes the JWT in order to return this
 """
+
+
 def verify_decode_jwt(token):
     unverified_header = jwt.get_unverified_header(token)
     rsa_key = {}
-    for key in json.loads(urlopen("https://"+AUTH0_DOMAIN+"/.well-known/jwks.json").read())['keys']:
+    for key in json.loads(urlopen("https://" + AUTH0_DOMAIN + "/.well-known/jwks.json").read())['keys']:
         """
         Verify JWT
         """
@@ -86,7 +91,7 @@ def verify_decode_jwt(token):
                 rsa_key,
                 algorithms=ALGORITHMS,
                 audience=API_AUDIENCE,
-                issuer="https://"+AUTH0_DOMAIN+"/"
+                issuer="https://" + AUTH0_DOMAIN + "/"
             )
             return payload
 
@@ -101,7 +106,7 @@ def verify_decode_jwt(token):
                 "code": "invalid_claims",
                 "description": "Incorrect claims, check the audience and issuer"
             }, 401)
-            
+
         except Exception:
             raise AuthError({
                 "code": "invalid_header",
@@ -118,6 +123,8 @@ def verify_decode_jwt(token):
 Check permissions
 Raises AuthError if "permissions" isn't in payload and the if the required permission is in the permissions payload
 """
+
+
 def check_permissions(permission, payload):
     if 'permissions' not in payload:
         raise AuthError({
@@ -139,6 +146,8 @@ Requires Auth
 - Verify and Decode JWT
 - Check given permission
 """
+
+
 def requires_auth(permission=''):
     def requires_auth_decorator(f):
         @wraps(f)
@@ -149,4 +158,5 @@ def requires_auth(permission=''):
             return f(payload, *args, **kwargs)
 
         return wrapper
+
     return requires_auth_decorator
