@@ -1,6 +1,6 @@
-from helper.IJetonContext import IJetonContext
+from flaskr.helper.IJetonContext import IJetonContext
 from configparser import ConfigParser
-from models.Jeton import Jeton
+from flaskr.models.Jeton import Jeton
 
 database_ini = "data/casino_bank.ini"
 config_ini = "configuration/config.ini"
