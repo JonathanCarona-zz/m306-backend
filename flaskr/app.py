@@ -33,7 +33,12 @@ GET /jetons/<id>
 @requires_auth('get:jeton')
 def get_jeton(jwt, user_id):
   try:
+    print("Gets here")
     jeton = CasinoSingleton.get_jeton_by_user_id(user_id)
+
+    if not (user_id == jeton.user_id):
+      abort(401)
+    
     factor = CasinoSingleton.get_jeton_factor()
 
     return jsonify({
@@ -151,6 +156,18 @@ def bad_request(error):
         'error': 400,
         'message': "bad request"
     }), 400
+
+
+'''
+Error Handler for 401
+'''
+@app.errorhandler(401)
+def not_found(error):
+    return jsonify({
+        'success': False,
+        'error': 401,
+        'message': "unauthorized"
+    }), 401
 
 
 '''
