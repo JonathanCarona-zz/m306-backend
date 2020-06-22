@@ -2,6 +2,7 @@ from flask import Flask, request, abort, jsonify
 from flask_cors import CORS
 
 from services.CasinoSingleton import CasinoSingleton
+from services.auth import AuthError, requires_auth
 
 def create_app(test_config=None):
   # create and configure the app
@@ -19,6 +20,7 @@ if __name__ == '__main__':
 GET /jetons/<id>
 '''
 @app.route('/jetons/<string:user_id>', methods=['GET'])
+@requires_auth('get:jetons')
 def get_jeton(user_id):
   try:
     jeton = CasinoSingleton.get_jeton_by_user_id(user_id)
@@ -39,6 +41,7 @@ def get_jeton(user_id):
 PATCH /payment/<paymentMethod>
 '''
 @app.route('/payment/<paymentmethod>', methods=['PATCH'])
+@requires_auth('patch:payment')
 def patch_pay(paymentmethod):
   try:
     body = request.get_json()
@@ -63,6 +66,7 @@ def patch_pay(paymentmethod):
 POST /jetons
 '''
 @app.route('/jetons', methods=['POST'])
+@requires_auth('post:jetons')
 def post_jeton():
   try:
     body = request.get_json()
@@ -90,6 +94,7 @@ def post_jeton():
 PATCH /jetons/<id>
 '''
 @app.route('/jetons/<string:user_id>', methods=['PATCH'])
+@requires_auth('patch:jetons')
 def patch_jeton(user_id):
   try:
     body = request.get_json()
@@ -111,3 +116,52 @@ def patch_jeton(user_id):
   except Exception as e:
     print(e)
     abort(404)
+
+
+# Error Handling
+'''
+Error Handler for 422
+'''
+@app.errorhandler(422)
+def unprocessable(error):
+    return jsonify({
+        "success": False,
+        "error": 422,
+        "message": "unprocessable"
+    }), 422
+
+
+'''
+Error Handler for 400
+'''
+@app.errorhandler(400)
+def bad_request(error):
+    return jsonify({
+        'success': False,
+        'error': 400,
+        'message': "bad request"
+    }), 400
+
+
+'''
+Error Handler for 404
+'''
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({
+        'success': False,
+        'error': 404,
+        'message': "unprocessable"
+    }), 404
+
+
+'''
+Error Handler for AuthError
+'''
+@app.errorhandler(AuthError)
+def auth_error(error):
+    return jsonify({
+        'success': False,
+        'error': error.status_code,
+        'message': error.error['description']
+    }), error.status_code
