@@ -1,7 +1,7 @@
 from flask import Flask, request, abort, jsonify
 from flask_cors import CORS
 
-from flaskr.services.CasinoSingleton import CasinoSingleton
+from services.CasinoSingleton import CasinoSingleton
 
 def create_app(test_config=None):
   # create and configure the app
