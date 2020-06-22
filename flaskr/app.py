@@ -8,12 +8,19 @@ def create_app(test_config=None):
   # create and configure the app
   app = Flask(__name__)
   CORS(app, resources={r"/*": {"origins": "*"}})
+  
   return app
 
 app = create_app()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
+
+@app.after_request
+def after_request(response):
+  response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+  response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS')
+  return response
 
 # ROUTES
 '''
