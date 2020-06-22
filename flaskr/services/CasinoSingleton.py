@@ -1,8 +1,9 @@
 from __future__ import annotations
 from typing import Optional
-from helper.inifile_jeton_context import IniFileJetonContext
-from models.Jeton import Jeton
-from services.PaymentStrategy import PaymentContext, CreditcardPayment, TwintPayment
+from flaskr.helper.IniFileJetonContext import IniFileJetonContext
+from flaskr.models.Jeton import Jeton
+from flaskr.services.PaymentStrategy import PaymentContext, CreditcardPayment, TwintPayment
+
 
 
 class CasinoSingletonMeta(type):
