@@ -1,0 +1,307 @@
+{
+	"info": {
+		"_postman_id": "d80d1111-98f4-4d2d-91a9-1c203ae5edbe",
+		"name": "m306-casino-backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "player",
+			"item": [
+				{
+					"name": "jeton/lkajsfu483ijz6932kj12fasjl4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3255040c-67b4-4daf-98c9-d61c9a831f87",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains jeton information\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.user_id).to.be(\"asdf1234fdsa\")",
+									"    pm.expect(jsonData.jeton_amount).to.be(204820)",
+									"    pm.expect(jsonData.factor).to.be(1.50)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/jetons/asdf1234fdsa",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"jetons",
+								"asdf1234fdsa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "jeton",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dcd43c7e-a24a-459b-95dd-e6b3a4368557",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains jeton information\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.user_id).to.be(\"kkjhgfde56765rf\")",
+									"    pm.expect(jsonData.jeton_amount).to.be(3000)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"kkjhgfde56765rf\",\n    \"jeton_amount\": 3000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/jetons",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"jetons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "jeton/lkajsfu483ijz6932kj12fasjl4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ac89be1e-dbed-4944-b8dd-66d0af5784a2",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains jeton information\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.user_id).to.be(\"lkajsfu483ijz6932kj12fasjl4\")",
+									"    pm.expect(jsonData.jeton_amount).to.be(20000)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jeton_amount\": 20000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/jetons/lkajsfu483ijz6932kj12fasjl4",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"jetons",
+								"lkajsfu483ijz6932kj12fasjl4"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjNjVWpBTFJ2bGpxVEROZ050MHRUcCJ9.eyJpc3MiOiJodHRwczovL2RybGVhcm5pbmcuZXUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVlZTM0NTA0NmNjNDM5MDAxNGM0NDA0YyIsImF1ZCI6ImNhc3RpbmdhZ2VuY3kiLCJpYXQiOjE1OTI0Mjg3MzQsImV4cCI6MTU5MjQzNTkzNCwiYXpwIjoiQ2t3bjJRMjRpQzF3M3dXQVZUSUR3NzloT3A0SlZKNksiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTogYWN0b3JzIiwiZGVsZXRlOiBjYXN0X21lbWJlcnMiLCJkZWxldGU6IG1vdmllcyIsImdldDogYWN0b3JzIiwiZ2V0OiBtb3ZpZXMiLCJwYXRjaDogYWN0b3JzIiwicGF0Y2g6IG1vdmllcyIsInBvc3Q6IGFjdG9ycyIsInBvc3Q6IGNhc3RfbWVtYmVycyIsInBvc3Q6IG1vdmllcyJdfQ.fgqgjM2aR0NyJVc1uU0waJDr1tZ7W5kjnt1QFLjrn-r5MDNlyvsTHRExrwRcRuVJTBWmOwF_9o4L9023YXRTtdgMHD_xtjvka93LzPTMPbxwlz2scTzKSLvdC3QTzRnrMpPROukRGcGp_1Me462pAoIb0_cmqqtETohvHcIuEbiGF3q2vdyq81bF8lhZKOBgMDed3XYsWHdm4VTQ8IjIWlPkFCCyHOhKFt1tTgPRWsgqEQ1TfULszjtzrAiaQ9h1C3aTdX7I0K4lGuwKlZj7z7nvVy_O7cSiq5XhiFZIEANj4JCqxSPDZx_6_xP-7tVOFzDfKB1iYzP3AhHeixUUEQ",
+						"type": "string"
+					}
+				]
+			},
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "visitor",
+			"item": [
+				{
+					"name": "jeton/lkajsfu483ijz6932kj12fasjl4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0a6e7e51-f135-49a9-ae96-c3f0f306ea59",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/jetons/asdf1234fdsa",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"jetons",
+								"asdf1234fdsa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "jeton/lkajsfu483ijz6932kj12fasjl4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2120a240-4d07-4652-8201-9d436aaa171b",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jeton_amount\": 12345\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/jetons/lkajsfu483ijz6932kj12fasjl4",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"jetons",
+								"lkajsfu483ijz6932kj12fasjl4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "jeton",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "35ee9634-1b80-4f0e-8037-083693ca8f66",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"kkjhgfde56765rf\",\n    \"jeton_amount\": 3000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/jetons",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"jetons"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
