@@ -1,0 +1,539 @@
+{
+	"info": {
+		"_postman_id": "d80d1111-98f4-4d2d-91a9-1c203ae5edbe",
+		"name": "M306 Casino",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "player",
+			"item": [
+				{
+					"name": "/payment/creditcard",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9dd41265-384d-4a92-a90a-adeab7f922a8",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"lkajsfu483ijz6932kj12fasjl4\",\n    \"addedJetonAmount\": 2000,\n    \"payAmount\": 2000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/payment/creditcard",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"payment",
+								"creditcard"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/jeton/lkajsfu483ijz6932kj12fasjl4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3255040c-67b4-4daf-98c9-d61c9a831f87",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains jeton information\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.user_id).to.eql(\"asdf1234fdsa\");",
+									"    pm.expect(jsonData.jeton_amount).to.eql(204820)",
+									"    pm.expect(jsonData.factor).to.eql(1.50)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/jetons/lkajsfu483ijz6932kj12fasjl4",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"jetons",
+								"lkajsfu483ijz6932kj12fasjl4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/jeton",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dcd43c7e-a24a-459b-95dd-e6b3a4368557",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains jeton information\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.user_id).to.eql(\"sdfghztredfgt65\")",
+									"    pm.expect(jsonData.jeton_amount).to.eql(3000)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"sdfghztredfgt65\",\n    \"jeton_amount\": 3000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/jetons",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"jetons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/jeton/lkajsfu483ijz6932kj12fasjl4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ac89be1e-dbed-4944-b8dd-66d0af5784a2",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains jeton information\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.user_id).to.be(\"sdfghztredfgt65\")",
+									"    pm.expect(jsonData.jeton_amount).to.be(12345)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jeton_amount\": 12345\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/jetons/sdfghztredfgt65",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"jetons",
+								"sdfghztredfgt65"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/slotmachine/spin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d1ee56bb-6ff3-45a4-9260-5eec7720a58a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"lkajsfu483ijz6932kj12fasjl4\",\n    \"bet\": 500,\n    \"jeton\": 2000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/slotmachine/spin",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"slotmachine",
+								"spin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/jeton (Error)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fde19a1f-4ed2-4121-a139-1e139216efde",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"sdfghztredfgt65\",\n    \"jeton_amount\": 3000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/jetons",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"jetons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/jeton/qwertzuiop234567890 (Error)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f678a76f-a900-40f5-9456-c9cc2511cbe7",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/jetons/qwertzuiop234567890",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"jetons",
+								"qwertzuiop234567890"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/jetons/jetons (Error)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6ea0d38d-8f9c-434d-9ef1-f3b530d45d10",
+								"exec": [
+									"pm.test(\"Status code is 405\", function () {",
+									"    pm.response.to.have.status(405);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"question\":\"Hello\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/jetons/jeton",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"jetons",
+								"jeton"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjRUcWNUbDJsbWpMakktZGZ5dnpRUiJ9.eyJpc3MiOiJodHRwczovL2Rldi15My12Zmpyby5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWVmMTE3YmRiNzcyNWIwMDEzNDI3NDc1IiwiYXVkIjoiY2FzaW5vcHJvdG90eXAiLCJpYXQiOjE1OTI4NjMyODYsImV4cCI6MTU5Mjg3MDQ4NiwiYXpwIjoiWGJPcmhzRDRxOVBIcjNya1hpNnU5TllRRVNmeXdac2ciLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImdldDpnYW1lcyIsImdldDpqZXRvbiIsInBhdGNoOmpldG9uIiwicGF0Y2g6cGF5bWVudCIsInBvc3Q6amV0b24iXX0.bqplwnZeAthKX1zyCU5V12owPWVrsJPhRlKZmqX7uhGXM_JsfdtEFsc24iBURdJOPgTZaMeYrTQmBmQJ8sugc8zVxi53SIt1xQeDd7lgl2LgFQnT5GsXaiDz7112rndNBUDwQ9FTWgWa-Hd5JPifiYI8PL-gr3HrS_n6i6UwLxE8rI_IIohOz8NdR9nIP8tV5Uyun03yv3tdgQknDwz2bF1Cj5SFHvA0IvcN3g51qO5FbbZAkB5SFUcrtys7hIPJO3zz9r7V8ZiYYARkYQEZ_wltPTecPqQFlrLPzD94bwEzjCHz7GzOgKTsS0R2Y-9xT9zOo_8QITDWrG1wwx2qmA",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "bf88f9bf-2ab8-4dcc-b6b8-713892282023",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "8f53875a-382a-437e-b0d9-7406a7226799",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "visitor",
+			"item": [
+				{
+					"name": "jeton/lkajsfu483ijz6932kj12fasjl4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0a6e7e51-f135-49a9-ae96-c3f0f306ea59",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/jetons/asdf1234fdsa",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"jetons",
+								"asdf1234fdsa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "jeton/lkajsfu483ijz6932kj12fasjl4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2120a240-4d07-4652-8201-9d436aaa171b",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jeton_amount\": 12345\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/jetons/lkajsfu483ijz6932kj12fasjl4",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"jetons",
+								"lkajsfu483ijz6932kj12fasjl4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "jeton",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "35ee9634-1b80-4f0e-8037-083693ca8f66",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"kkjhgfde56765rf\",\n    \"jeton_amount\": 3000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/jetons",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"jetons"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "045583d8-29c3-486f-8680-f8702fd158df",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "916f9681-7bcd-412d-b7c6-60326cf50ddf",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "03ac02ac-cc44-4fe5-9934-0cfd7ea182d1",
+			"key": "host",
+			"value": "localhost:5000",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -33,7 +33,12 @@ GET /jetons/<id>
 @requires_auth('get:jeton')
 def get_jeton(jwt, user_id):
   try:
+    print("Gets here")
     jeton = CasinoSingleton.get_jeton_by_user_id(user_id)
+
+    if not (user_id == jeton.user_id):
+      abort(401)
+    
     factor = CasinoSingleton.get_jeton_factor()
 
     return jsonify({
@@ -130,18 +135,6 @@ def patch_jeton(jwt, user_id):
 
 # Error Handling
 '''
-Error Handler for 422
-'''
-@app.errorhandler(422)
-def unprocessable(error):
-    return jsonify({
-        "success": False,
-        "error": 422,
-        "message": "unprocessable"
-    }), 422
-
-
-'''
 Error Handler for 400
 '''
 @app.errorhandler(400)
@@ -151,6 +144,18 @@ def bad_request(error):
         'error': 400,
         'message': "bad request"
     }), 400
+
+
+'''
+Error Handler for 401
+'''
+@app.errorhandler(401)
+def not_found(error):
+    return jsonify({
+        'success': False,
+        'error': 401,
+        'message': "unauthorized"
+    }), 401
 
 
 '''
@@ -169,12 +174,36 @@ def not_found(error):
 Error Handler for 405
 '''
 @app.errorhandler(405)
-def not_found(error):
+def method_not_allowed(error):
     return jsonify({
         'success': False,
         'error': 405,
         'message': "method not allowed"
     }), 405
+
+
+'''
+Error Handler for 422
+'''
+@app.errorhandler(422)
+def unprocessable(error):
+    return jsonify({
+        "success": False,
+        "error": 422,
+        "message": "unprocessable"
+    }), 422
+
+
+'''
+Error Handler for 500
+'''
+@app.errorhandler(500)
+def internal_server_error(error):
+    return jsonify({
+        'success': False,
+        'error': 500,
+        'message': "internal server error"
+    }), 500
 
 
 '''
