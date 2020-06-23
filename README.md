@@ -61,8 +61,9 @@ Errors are returned as JSON objects in the following format:
 }
 ```
 
-The API will return five error types when requests fail:
+The API has the following Handlers for errors:
 - 400: Bad Request
+- 401: Unauthorized
 - 404: Not Found
 - 405: Method Not Allowed
 - 422: Unprocessable

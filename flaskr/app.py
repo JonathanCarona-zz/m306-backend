@@ -135,18 +135,6 @@ def patch_jeton(jwt, user_id):
 
 # Error Handling
 '''
-Error Handler for 422
-'''
-@app.errorhandler(422)
-def unprocessable(error):
-    return jsonify({
-        "success": False,
-        "error": 422,
-        "message": "unprocessable"
-    }), 422
-
-
-'''
 Error Handler for 400
 '''
 @app.errorhandler(400)
@@ -192,6 +180,18 @@ def method_not_allowed(error):
         'error': 405,
         'message': "method not allowed"
     }), 405
+
+
+'''
+Error Handler for 422
+'''
+@app.errorhandler(422)
+def unprocessable(error):
+    return jsonify({
+        "success": False,
+        "error": 422,
+        "message": "unprocessable"
+    }), 422
 
 
 '''
