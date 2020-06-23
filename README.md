@@ -146,6 +146,6 @@ The API will return five error types when requests fail:
 Test your endpoints with [Postman](https://getpostman.com). 
 - Register a new user - assign the "player" role.
 - Sign into the account and make note of the JWT.
-- Import the postman collection `./tests/m306-casino-backend.postman_collection.json`
-- Right-clicking the collection folder for player, navigate to the authorization tab, and including the JWT in the token field (you should have noted the JWT).
+- Import the postman collection `./tests/m306-casino.postman_collection.json`
+- Right-clicking the collection folder for player, navigate to the authorization tab, and including the JWT in the token field.
 - Run the collection and correct any errors.
