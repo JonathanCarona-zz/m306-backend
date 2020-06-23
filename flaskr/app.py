@@ -201,7 +201,10 @@ def play_game():
 
     if (body['bet'] == 0):
       abort(422)
-    return SlotMachineService().spin(body['user_id', body['bet'], body['jeton']])
+
+    test = SlotMachineService().spin(body['user_id'], body['bet'], body['jeton'])
+
+    return test
 
   except Exception as e:
     print(e)
