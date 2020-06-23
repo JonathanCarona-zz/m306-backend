@@ -186,12 +186,24 @@ def not_found(error):
 Error Handler for 405
 '''
 @app.errorhandler(405)
-def not_found(error):
+def method_not_allowed(error):
     return jsonify({
         'success': False,
         'error': 405,
         'message': "method not allowed"
     }), 405
+
+
+'''
+Error Handler for 500
+'''
+@app.errorhandler(500)
+def internal_server_error(error):
+    return jsonify({
+        'success': False,
+        'error': 500,
+        'message': "internal server error"
+    }), 500
 
 
 '''
